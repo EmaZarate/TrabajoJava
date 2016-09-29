@@ -33,6 +33,7 @@ public class ABMPersonaje extends JFrame {
 	private JTextField txtEvasion;
 	private JTextField txtTotalRestante;
 	private Component frame;
+	ControladorABM ctrl= new ControladorABM();
 
 	/**
 	 * Launch the application.
@@ -61,7 +62,7 @@ public class ABMPersonaje extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		ControladorABM ctrl= new ControladorABM();
+		
 		
 		JLabel lblOpciones = new JLabel("Opciones");
 		lblOpciones.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 24));
@@ -168,7 +169,7 @@ public class ABMPersonaje extends JFrame {
 		if(datosValidos()){
 			
 				Personaje p = MapearDeFormulario();
-				ctrl.add(p);
+				ctrl.agregar(p);
 				MapearAFormulario(p);
 				//limpiarCampos();
 			
