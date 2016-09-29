@@ -20,6 +20,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextField;
+import Controlador.*;
 
 public class ABMPersonaje extends JFrame {
 
@@ -59,6 +60,8 @@ public class ABMPersonaje extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		ControladorABM ctrl= new ControladorABM();
 		
 		JLabel lblOpciones = new JLabel("Opciones");
 		lblOpciones.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 24));
@@ -130,12 +133,11 @@ public class ABMPersonaje extends JFrame {
 		contentPane.add(txtTotalRestante);
 		
 		JButton btnCrear = new JButton("Crear");
-		btnCrear.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				agregar();
-			}});
+		btnCrear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				crear();
+			}
+		});
 		
 		btnCrear.setBounds(10, 347, 88, 23);
 	
@@ -162,16 +164,14 @@ public class ABMPersonaje extends JFrame {
 	}
 	
 	
-	protected void agregar() {
+	protected void crear() {
 		if(datosValidos()){
-			try {
+			
 				Personaje p = MapearDeFormulario();
 				ctrl.add(p);
 				MapearAFormulario(p);
 				//limpiarCampos();
-			} catch (ApplicationException ae) {
-				notifyUser(ae.getMessage(),ae, Level.DEBUG);
-			}
+			
 		}
 	}
 	
