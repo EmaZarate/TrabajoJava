@@ -8,7 +8,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.omg.CORBA.portable.ApplicationException;
+
 import com.sun.glass.events.MouseEvent;
+import com.sun.glass.ui.Window.Level;
 
 import Entidades.Personaje;
 
@@ -21,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JTextField;
 import Controlador.*;
+import javax.swing.JTextArea;
 
 public class ABMPersonaje extends JFrame {
 
@@ -34,6 +38,8 @@ public class ABMPersonaje extends JFrame {
 	private JTextField txtTotalRestante;
 	private Component frame;
 	ControladorABM ctrl= new ControladorABM();
+	private JTextField txtVida;
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -65,8 +71,8 @@ public class ABMPersonaje extends JFrame {
 		
 		
 		JLabel lblOpciones = new JLabel("Opciones");
-		lblOpciones.setFont(new Font("Harlow Solid Italic", Font.PLAIN, 24));
-		lblOpciones.setBounds(148, 11, 119, 41);
+		lblOpciones.setFont(new Font("Super Mario 256", Font.PLAIN, 24));
+		lblOpciones.setBounds(120, 11, 164, 41);
 		contentPane.add(lblOpciones);
 		
 		JLabel lblId = new JLabel("ID");
@@ -74,7 +80,7 @@ public class ABMPersonaje extends JFrame {
 		contentPane.add(lblId);
 		
 		JLabel lblNombre = new JLabel("Nombre");
-		lblNombre.setBounds(38, 102, 46, 14);
+		lblNombre.setBounds(195, 67, 46, 14);
 		contentPane.add(lblNombre);
 		
 		JLabel lblDefensa = new JLabel("Defensa");
@@ -98,13 +104,13 @@ public class ABMPersonaje extends JFrame {
 		contentPane.add(label);
 		
 		txtID = new JTextField();
-		txtID.setBounds(120, 65, 72, 17);
+		txtID.setBounds(81, 65, 72, 17);
 		contentPane.add(txtID);
 		txtID.setColumns(10);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(120, 100, 72, 17);
+		txtNombre.setBounds(246, 65, 110, 17);
 		contentPane.add(txtNombre);
 		
 		txtDefensa = new JTextField();
@@ -160,6 +166,24 @@ public class ABMPersonaje extends JFrame {
 		btnEliminar.setBounds(289, 347, 83, 23);
 		contentPane.add(btnEliminar);
 		
+		JLabel lblVida = new JLabel("Vida");
+		lblVida.setBounds(38, 99, 72, 17);
+		contentPane.add(lblVida);
+		
+		txtVida = new JTextField();
+		txtVida.setColumns(10);
+		txtVida.setBounds(120, 98, 72, 17);
+		contentPane.add(txtVida);
+		
+		JLabel lblPoints = new JLabel("PUNTOS");
+		lblPoints.setBounds(257, 137, 65, 14);
+		contentPane.add(lblPoints);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(236, 156, 86, 51);
+		contentPane.add(textField_1);
+		textField_1.setColumns(10);
+		
 		
 		
 	}
@@ -168,13 +192,19 @@ public class ABMPersonaje extends JFrame {
 	protected void crear() {
 		if(datosValidos()){
 			
-				Personaje p = MapearDeFormulario();
+				try{
+					Personaje p = MapearDeFormulario();
+				
 				ctrl.agregar(p);
 				MapearAFormulario(p);
 				//limpiarCampos();
-			
-		}
+				} 
+				catch (ApplicationException ae) {
+					notifyUser(ae.getMessage(),ae, Level.DEBUG);
+				}
+			}
 	}
+	
 	
 	
 	public boolean datosValidos(){
@@ -202,11 +232,29 @@ public class ABMPersonaje extends JFrame {
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
 		if(!txtID.getText().isEmpty()) p.setId(Integer.parseInt(txtID.getText()));
-		p.setDni(Integer.parseInt(txtDni.getText()));
-		p.setApellido(txtApellido.getText());
 		p.setNombre(txtNombre.getText());
-		p.setHabilitado(chckbxHabilitado.isSelected());
+		p.setVida(Integer.parseInt(txtVida.getText()));
+		p.setEnergia(Integer.parseInt(txtEnergia.getText()));
+		p.setAtaque(Integer.parseInt(txtAtaque.getText()));
+		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
+		//p.setTotalRestante(Integer.parseInt(txtTotalRestante.getText());
 		
 		return p;
 	}
+
+
+	public void MapearAFormulario(Personaje p){
+		if(p.getId()>0)
+		txtID.setText(String.valueOf(p.getId()));
+		txtNombre.setText(p.getNombre());
+		txtVida.setText(String.valueOf(p.getVida()));
+		txtEnergia.setText(String.valueOf(p.getEnergia()));
+		txtAtaque.setText(String.valueOf(p.getAtaque()));
+		txtDefensa.setText(String.valueOf(p.getDefensa()));
+		txtEvasion.setText(String.valueOf(p.getEvasion()));
+		//txtTotalRestante(String.valueOf(p.getTotalRestante()));
+	}
+
+
+
 }

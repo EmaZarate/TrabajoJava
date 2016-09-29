@@ -2,7 +2,7 @@ package Entidades;
 
 public class Personaje {
 	String nombre;
-	int energia,defensa,ataque,evasion,id;
+	int energia,vida,defensa,ataque,evasion,id;
 	public int getId() {
 		return id;
 	}
@@ -39,5 +39,12 @@ public class Personaje {
 	public void setEvasion(int evasion) {
 		this.evasion = evasion;
 	}
+	public int getVida() {
+		return vida;
+	}
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+	
 
 }
