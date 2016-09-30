@@ -45,6 +45,9 @@ public class Personaje {
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
-	
+	@Override
+	public boolean equals(Object per){
+		return per instanceof Personaje && ((Personaje)per).getId() == this.getId();
+	}
 
 }

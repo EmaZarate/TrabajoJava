@@ -143,6 +143,7 @@ public class ABMPersonaje extends JFrame {
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				crear();
+				JOptionPane.showMessageDialog(null, "Personaje registrada!");
 			}
 		});
 		
@@ -151,6 +152,12 @@ public class ABMPersonaje extends JFrame {
 		contentPane.add(btnCrear);
 		
 		JButton button = new JButton("Buscar");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				buscar();
+				
+			}
+		});
 		button.setBounds(104, 347, 81, 23);
 		contentPane.add(button);
 		
@@ -192,16 +199,12 @@ public class ABMPersonaje extends JFrame {
 	protected void crear() {
 		if(datosValidos()){
 			
-				try{
-					Personaje p = MapearDeFormulario();
+				Personaje p = MapearDeFormulario();
 				
 				ctrl.agregar(p);
 				MapearAFormulario(p);
-				//limpiarCampos();
-				} 
-				catch (ApplicationException ae) {
-					notifyUser(ae.getMessage(),ae, Level.DEBUG);
-				}
+				limpiarCampos();
+				
 			}
 	}
 	
@@ -231,12 +234,14 @@ public class ABMPersonaje extends JFrame {
 	
 	public Personaje MapearDeFormulario(){
 		Personaje p = new Personaje();
-		if(!txtID.getText().isEmpty()) p.setId(Integer.parseInt(txtID.getText()));
+		if(!txtID.getText().isEmpty())
+		p.setId(Integer.parseInt(txtID.getText()));
 		p.setNombre(txtNombre.getText());
 		p.setVida(Integer.parseInt(txtVida.getText()));
 		p.setEnergia(Integer.parseInt(txtEnergia.getText()));
 		p.setAtaque(Integer.parseInt(txtAtaque.getText()));
 		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
+		p.setEvasion(Integer.parseInt(txtEvasion.getText()));
 		//p.setTotalRestante(Integer.parseInt(txtTotalRestante.getText());
 		
 		return p;
@@ -255,6 +260,25 @@ public class ABMPersonaje extends JFrame {
 		//txtTotalRestante(String.valueOf(p.getTotalRestante()));
 	}
 
-
+	
+	private void limpiarCampos() {
+		txtID.setText("");
+		txtNombre.setText("");
+		txtVida.setText("");
+		txtEnergia.setText("");
+		txtAtaque.setText("");
+		txtDefensa.setText("");
+		txtEvasion.setText("");
+	}
+	
+	public void buscar(){
+		Personaje per =  ctrl.Buscar(MapearDeFormulario());
+		if(per!= null)
+			MapearAFormulario(per);
+	}
+	
+	public void modificar(){
+		ctrl.Modificar(MapearDeFormulario());
+	}
 
 }
