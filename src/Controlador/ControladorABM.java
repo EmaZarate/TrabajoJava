@@ -25,7 +25,7 @@ public class ControladorABM {
 	public void agregar(Personaje p){
 		arrayPer.add(p);
 	}
-
+	
 	
 	public Personaje Buscar(Personaje per)
 	{
@@ -55,7 +55,10 @@ public class ControladorABM {
 	
 	public void Eliminar(Personaje p)
 	{
+		/*if(arrayPer.contains(per)){
+		Personaje perEnc=this.Buscar(per);
 		arrayPer.delete(p);
+		}*/
 	}
 }
 

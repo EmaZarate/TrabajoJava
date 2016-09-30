@@ -164,12 +164,18 @@ public class ABMPersonaje extends JFrame {
 		JButton btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				modificar();
 			}
 		});
 		btnModificar.setBounds(195, 347, 84, 23);
 		contentPane.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				eliminar();
+			}
+		});
 		btnEliminar.setBounds(289, 347, 83, 23);
 		contentPane.add(btnEliminar);
 		
@@ -272,13 +278,21 @@ public class ABMPersonaje extends JFrame {
 	}
 	
 	public void buscar(){
-		Personaje per =  ctrl.Buscar(MapearDeFormulario());
-		if(per!= null)
-			MapearAFormulario(per);
+		
+		Personaje per =  new Personaje();
+		per.setId(Integer.parseInt(txtID.getText()));
+		Personaje p=ctrl.Buscar(per);
+		if(p!= null)
+			MapearAFormulario(p);
 	}
 	
 	public void modificar(){
 		ctrl.Modificar(MapearDeFormulario());
+		limpiarCampos();
+	}
+	
+	public void eliminar(){
+		ctrl.Eliminar(MapearDeFormulario());
 	}
 
 }
