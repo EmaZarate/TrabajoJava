@@ -55,10 +55,10 @@ public class ControladorABM {
 	
 	public void Eliminar(Personaje p)
 	{
-		/*if(arrayPer.contains(per)){
-		Personaje perEnc=this.Buscar(per);
-		arrayPer.delete(p);
-		}*/
+		if(arrayPer.contains(p)){
+		Personaje perEnc=this.Buscar(p);
+		arrayPer.remove(perEnc);
+		}
 	}
 }
 
