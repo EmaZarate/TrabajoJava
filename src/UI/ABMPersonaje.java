@@ -165,6 +165,7 @@ public class ABMPersonaje extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modificar();
+				JOptionPane.showMessageDialog(null, "Personaje modificada!");
 			}
 		});
 		btnModificar.setBounds(195, 347, 84, 23);
@@ -174,6 +175,7 @@ public class ABMPersonaje extends JFrame {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				eliminar();
+				JOptionPane.showMessageDialog(null, "Personaje eliminado!");
 			}
 		});
 		btnEliminar.setBounds(289, 347, 83, 23);
@@ -293,6 +295,7 @@ public class ABMPersonaje extends JFrame {
 	
 	public void eliminar(){
 		ctrl.Eliminar(MapearDeFormulario());
+		limpiarCampos();
 	}
 
 }
