@@ -289,7 +289,7 @@ public class ABMPersonaje extends JFrame {
 			}
 	}
 	
-	public Personaje buscar(){
+	public void buscar(){
 		
 		Personaje per =  new Personaje();
 		per.setId(Integer.parseInt(txtID.getText()));
@@ -298,12 +298,14 @@ public class ABMPersonaje extends JFrame {
 			{MapearAFormulario(p);
 			
 			}
-	    return p;
+	    
 	}
 	
 	public void modificar(){
 		
-		Personaje p=buscar();
+		Personaje per =  new Personaje();
+		per.setId(Integer.parseInt(txtID.getText()));
+		Personaje p=ctrl.Buscar(per);
 		if( ((Integer.parseInt(txtEnergia.getText()))+(Integer.parseInt(txtVida.getText()))+(Integer.parseInt(txtAtaque.getText()))
 				+(Integer.parseInt(txtDefensa.getText())) +(Integer.parseInt(txtEvasion.getText()))>p.getPuntos()))
 				
