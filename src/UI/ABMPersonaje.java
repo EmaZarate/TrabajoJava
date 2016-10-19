@@ -25,7 +25,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import Controlador.*;
 import javax.swing.JTextArea;
-
+import Data.DataPersonaje;
 public class ABMPersonaje extends JFrame {
 
 	private JPanel contentPane;
@@ -35,11 +35,10 @@ public class ABMPersonaje extends JFrame {
 	private JTextField txtAtaque;
 	private JTextField txtEnergia;
 	private JTextField txtEvasion;
-	private JTextField txtTotalRestante;
 	private Component frame;
 	ControladorABM ctrl= new ControladorABM();
 	private JTextField txtVida;
-	private JTextField textField_1;
+	private JTextField txtPuntos;
 
 	/**
 	 * Launch the application.
@@ -99,10 +98,6 @@ public class ABMPersonaje extends JFrame {
 		lblTotalrestante.setBounds(38, 250, 72, 14);
 		contentPane.add(lblTotalrestante);
 		
-		JLabel label = new JLabel("Total/Restante");
-		label.setBounds(38, 290, 72, 14);
-		contentPane.add(label);
-		
 		txtID = new JTextField();
 		txtID.setBounds(81, 65, 72, 17);
 		contentPane.add(txtID);
@@ -133,12 +128,6 @@ public class ABMPersonaje extends JFrame {
 		txtEvasion.setBounds(120, 247, 72, 17);
 		contentPane.add(txtEvasion);
 		
-				
-		txtTotalRestante = new JTextField();
-		txtTotalRestante.setColumns(10);
-		txtTotalRestante.setBounds(120, 287, 72, 17);
-		contentPane.add(txtTotalRestante);
-		
 		JButton btnCrear = new JButton("Crear");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,7 +154,9 @@ public class ABMPersonaje extends JFrame {
 		btnModificar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modificar();
+
 				JOptionPane.showMessageDialog(null, "Personaje modificada!");
+
 			}
 		});
 		btnModificar.setBounds(195, 347, 84, 23);
@@ -175,7 +166,10 @@ public class ABMPersonaje extends JFrame {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				eliminar();
-				JOptionPane.showMessageDialog(null, "Personaje eliminado!");
+
+				JOptionPane.showMessageDialog(null, "Personaje Eliminado!");
+				
+
 			}
 		});
 		btnEliminar.setBounds(289, 347, 83, 23);
@@ -194,34 +188,27 @@ public class ABMPersonaje extends JFrame {
 		lblPoints.setBounds(257, 137, 65, 14);
 		contentPane.add(lblPoints);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(236, 156, 86, 51);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		txtPuntos = new JTextField();
+		txtPuntos.setBounds(236, 156, 86, 51);
+		contentPane.add(txtPuntos);
+		txtPuntos.setColumns(10);
 		
 		
 		
 	}
 	
 	
-	protected void crear() {
-		if(datosValidos()){
-			
-				Personaje p = MapearDeFormulario();
-				
-				ctrl.agregar(p);
-				MapearAFormulario(p);
-				limpiarCampos();
-				
-			}
-	}
+	
 	
 	
 	
 	public boolean datosValidos(){
 		boolean valido=true;
 		if(txtID.getText().trim().length()==0
-			|| txtNombre.getText().trim().length()==0){
+			|| txtNombre.getText().trim().length()==0|| txtAtaque.getText().trim().length()==0 || 
+			txtDefensa.getText().trim().length()==0 || txtEnergia.getText().trim().length()==0 
+			|| txtEvasion.getText().trim().length()==0 || txtVida.getText().trim().length()==0
+			){
 			valido=false;
 			notifyUser("Complete todos los campos");
 		}
@@ -229,6 +216,14 @@ public class ABMPersonaje extends JFrame {
 			valido=false;
 			notifyUser("DNI inválido");
 		}
+		if( ((Integer.parseInt(txtEnergia.getText()))+(Integer.parseInt(txtVida.getText()))+(Integer.parseInt(txtAtaque.getText()))
+				+(Integer.parseInt(txtDefensa.getText())) +(Integer.parseInt(txtEvasion.getText()))>200))
+				
+		{
+		valido=false;
+		notifyUser("Los atributos energia, vida, evasión,defensa y ataque superan los 200 puntos ");
+		}
+				
 			
 		return valido;
 	}
@@ -240,7 +235,7 @@ public class ABMPersonaje extends JFrame {
 	}
 	
 	
-	public Personaje MapearDeFormulario(){
+	public Personaje MapearDeFormulario(int punto){
 		Personaje p = new Personaje();
 		if(!txtID.getText().isEmpty())
 		p.setId(Integer.parseInt(txtID.getText()));
@@ -250,7 +245,8 @@ public class ABMPersonaje extends JFrame {
 		p.setAtaque(Integer.parseInt(txtAtaque.getText()));
 		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
 		p.setEvasion(Integer.parseInt(txtEvasion.getText()));
-		//p.setTotalRestante(Integer.parseInt(txtTotalRestante.getText());
+		p.setPuntos(punto);
+		
 		
 		return p;
 	}
@@ -265,6 +261,8 @@ public class ABMPersonaje extends JFrame {
 		txtAtaque.setText(String.valueOf(p.getAtaque()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
+		txtPuntos.setText(String.valueOf(p.getPuntos()));
+	
 		//txtTotalRestante(String.valueOf(p.getTotalRestante()));
 	}
 
@@ -279,22 +277,47 @@ public class ABMPersonaje extends JFrame {
 		txtEvasion.setText("");
 	}
 	
-	public void buscar(){
+	protected void crear() {
+		if(datosValidos()){
+			
+				Personaje p = MapearDeFormulario(200);
+				
+				ctrl.agregar(p);
+				
+				limpiarCampos();
+				
+			}
+	}
+	
+	public Personaje buscar(){
 		
 		Personaje per =  new Personaje();
 		per.setId(Integer.parseInt(txtID.getText()));
 		Personaje p=ctrl.Buscar(per);
 		if(p!= null)
-			MapearAFormulario(p);
+			{MapearAFormulario(p);
+			
+			}
+	    return p;
 	}
 	
 	public void modificar(){
-		ctrl.Modificar(MapearDeFormulario());
+		
+		Personaje p=buscar();
+		if( ((Integer.parseInt(txtEnergia.getText()))+(Integer.parseInt(txtVida.getText()))+(Integer.parseInt(txtAtaque.getText()))
+				+(Integer.parseInt(txtDefensa.getText())) +(Integer.parseInt(txtEvasion.getText()))>p.getPuntos()))
+				
+		{
+			notifyUser("Los atributos energia, vida, evasión,defensa y ataque superan los 200 puntos ");
+		}
+		else{
+		ctrl.Modificar(MapearDeFormulario(p.getPuntos()));
 		limpiarCampos();
+		}
 	}
 	
 	public void eliminar(){
-		ctrl.Eliminar(MapearDeFormulario());
+		ctrl.Eliminar(MapearDeFormulario(0));
 		limpiarCampos();
 	}
 
