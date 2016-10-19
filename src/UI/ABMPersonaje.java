@@ -295,9 +295,9 @@ public class ABMPersonaje extends JFrame {
 		per.setId(Integer.parseInt(txtID.getText()));
 		Personaje p=ctrl.Buscar(per);
 		if(p!= null)
-			{MapearAFormulario(p);
+			MapearAFormulario(p);
 			
-			}
+			
 	    
 	}
 	

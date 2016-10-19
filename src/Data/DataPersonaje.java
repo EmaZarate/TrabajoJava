@@ -151,6 +151,7 @@ public class DataPersonaje {
 				p.setEnergia(rs.getInt("energia"));
 				p.setAtaque(rs.getInt("ataque"));
 				p.setDefensa(rs.getInt("defensa"));
+				p.setEvasion(rs.getInt("evasion"));
 				p.setPuntos(rs.getInt("puntos"));
 			}
 		} catch (SQLException e) {
