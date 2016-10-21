@@ -1,23 +1,31 @@
 package UI;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.mysql.fabric.xmlrpc.base.Data;
+import org.omg.CORBA.portable.ApplicationException;
 
-import Entidades.*;
+import com.sun.glass.events.MouseEvent;
+import com.sun.glass.ui.Window.Level;
 
-import javax.swing.JButton;
+import Entidades.Personaje;
+
 import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JTextField;
 import Controlador.*;
+import javax.swing.JTextArea;
+import Data.DataPersonaje;
 
 
 public class SeleccionarPersonajes extends JFrame {
@@ -27,19 +35,17 @@ public class SeleccionarPersonajes extends JFrame {
 	private JTextField textNombre1;
 	private JTextField textVida1;
 	private JTextField textEnergia1;
-	private JTextField textAtaque1;
 	private JTextField textDefensa1;
 	private JTextField textEvasion1;
 	private JTextField textId2;
 	private JTextField textNombre2;
 	private JTextField textVida2;
 	private JTextField textEnergia2;
-	private JTextField textAtaque2;
 	private JTextField textDefensa2;
 	private JTextField textEvasion2;
-	private ControladorJuego ctrlJuego;
-	private Personaje personaje1;
-	private Personaje personaje2;
+	private ControladorJuego ctrlJuego= new ControladorJuego();
+	private Personaje personaje1= new Personaje();
+	private Personaje personaje2=new Personaje();
 
 	/**
 	 * Launch the application.
@@ -111,10 +117,6 @@ public class SeleccionarPersonajes extends JFrame {
 		lblEnergia.setBounds(10, 99, 46, 14);
 		contentPane.add(lblEnergia);
 		
-		JLabel lblAtaque = new JLabel("Ataque");
-		lblAtaque.setBounds(10, 132, 46, 14);
-		contentPane.add(lblAtaque);
-		
 		JLabel lblDefensa = new JLabel("Defensa");
 		lblDefensa.setBounds(10, 168, 46, 14);
 		contentPane.add(lblDefensa);
@@ -143,11 +145,6 @@ public class SeleccionarPersonajes extends JFrame {
 		textEnergia1.setBounds(66, 96, 86, 20);
 		contentPane.add(textEnergia1);
 		textEnergia1.setColumns(10);
-		
-		textAtaque1 = new JTextField();
-		textAtaque1.setBounds(66, 129, 86, 20);
-		contentPane.add(textAtaque1);
-		textAtaque1.setColumns(10);
 		
 		textDefensa1 = new JTextField();
 		textDefensa1.setText("");
@@ -182,11 +179,6 @@ public class SeleccionarPersonajes extends JFrame {
 		contentPane.add(textEnergia2);
 		textEnergia2.setColumns(10);
 		
-		textAtaque2 = new JTextField();
-		textAtaque2.setBounds(330, 129, 86, 20);
-		contentPane.add(textAtaque2);
-		textAtaque2.setColumns(10);
-		
 		textDefensa2 = new JTextField();
 		textDefensa2.setBounds(330, 165, 86, 20);
 		contentPane.add(textDefensa2);
@@ -213,10 +205,6 @@ public class SeleccionarPersonajes extends JFrame {
 		lblEnergia_1.setBounds(274, 99, 46, 14);
 		contentPane.add(lblEnergia_1);
 		
-		JLabel lblAtaque_1 = new JLabel("Ataque");
-		lblAtaque_1.setBounds(274, 132, 46, 14);
-		contentPane.add(lblAtaque_1);
-		
 		JLabel lblDefensa_1 = new JLabel("Defensa");
 		lblDefensa_1.setBounds(274, 168, 46, 14);
 		contentPane.add(lblDefensa_1);
@@ -233,7 +221,7 @@ public class SeleccionarPersonajes extends JFrame {
 		textNombre1.setText(p.getNombre());
 		textVida1.setText(String.valueOf(p.getVida()));
 		textEnergia1.setText(String.valueOf(p.getEnergia()));
-		textAtaque1.setText(String.valueOf(p.getAtaque()));
+	
 		textDefensa1.setText(String.valueOf(p.getDefensa()));
 		textEvasion1.setText(String.valueOf(p.getEvasion()));
 		
@@ -245,7 +233,7 @@ public class SeleccionarPersonajes extends JFrame {
 		textNombre2.setText(p.getNombre());
 		textVida2.setText(String.valueOf(p.getVida()));
 		textEnergia2.setText(String.valueOf(p.getEnergia()));
-		textAtaque2.setText(String.valueOf(p.getAtaque()));
+		
 		textDefensa2.setText(String.valueOf(p.getDefensa()));
 		textEvasion2.setText(String.valueOf(p.getEvasion()));
 		
@@ -261,7 +249,7 @@ public class SeleccionarPersonajes extends JFrame {
 	}
 	public void buscar2(){
 		Personaje per=new Personaje();
-		per.setId(Integer.parseInt(textId1.getText()));
+		per.setId(Integer.parseInt(textId2.getText()));
 		Personaje p =ctrlJuego.Buscar(per);
 		if(p!=null)
 		{

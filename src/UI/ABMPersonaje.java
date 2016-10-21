@@ -32,7 +32,6 @@ public class ABMPersonaje extends JFrame {
 	private JTextField txtID;
 	private JTextField txtDefensa;
 	private JTextField txtNombre;
-	private JTextField txtAtaque;
 	private JTextField txtEnergia;
 	private JTextField txtEvasion;
 	private Component frame;
@@ -72,19 +71,15 @@ public class ABMPersonaje extends JFrame {
 		contentPane.add(lblNombre);
 		
 		JLabel lblDefensa = new JLabel("Defensa");
-		lblDefensa.setBounds(38, 213, 46, 14);
+		lblDefensa.setBounds(38, 184, 46, 14);
 		contentPane.add(lblDefensa);
-		
-		JLabel lblAtaque = new JLabel("Ataque");
-		lblAtaque.setBounds(38, 176, 46, 14);
-		contentPane.add(lblAtaque);
 		
 		JLabel lblEnergia = new JLabel("Energia");
 		lblEnergia.setBounds(38, 139, 46, 14);
 		contentPane.add(lblEnergia);
 		
 		JLabel lblTotalrestante = new JLabel("Evasion");
-		lblTotalrestante.setBounds(38, 250, 72, 14);
+		lblTotalrestante.setBounds(38, 225, 72, 14);
 		contentPane.add(lblTotalrestante);
 		
 		txtID = new JTextField();
@@ -99,13 +94,8 @@ public class ABMPersonaje extends JFrame {
 		
 		txtDefensa = new JTextField();
 		txtDefensa.setColumns(10);
-		txtDefensa.setBounds(120, 211, 72, 17);
+		txtDefensa.setBounds(120, 182, 72, 17);
 		contentPane.add(txtDefensa);
-	
-		txtAtaque = new JTextField();
-		txtAtaque.setColumns(10);
-		txtAtaque.setBounds(120, 174, 72, 17);
-		contentPane.add(txtAtaque);
 		
 		txtEnergia = new JTextField();
 		txtEnergia.setColumns(10);
@@ -114,7 +104,7 @@ public class ABMPersonaje extends JFrame {
 		
 		txtEvasion = new JTextField();
 		txtEvasion.setColumns(10);
-		txtEvasion.setBounds(120, 247, 72, 17);
+		txtEvasion.setBounds(120, 223, 72, 17);
 		contentPane.add(txtEvasion);
 		
 		JButton btnCrear = new JButton("Crear");
@@ -194,7 +184,7 @@ public class ABMPersonaje extends JFrame {
 	public boolean datosValidos(){
 		boolean valido=true;
 		if(txtID.getText().trim().length()==0
-			|| txtNombre.getText().trim().length()==0|| txtAtaque.getText().trim().length()==0 || 
+			|| txtNombre.getText().trim().length()==0|| 
 			txtDefensa.getText().trim().length()==0 || txtEnergia.getText().trim().length()==0 
 			|| txtEvasion.getText().trim().length()==0 || txtVida.getText().trim().length()==0
 			){
@@ -205,7 +195,7 @@ public class ABMPersonaje extends JFrame {
 			valido=false;
 			notifyUser("DNI inválido");
 		}
-		if( ((Integer.parseInt(txtEnergia.getText()))+(Integer.parseInt(txtVida.getText()))+(Integer.parseInt(txtAtaque.getText()))
+		if( ((Integer.parseInt(txtEnergia.getText()))+(Integer.parseInt(txtVida.getText()))
 				+(Integer.parseInt(txtDefensa.getText())) +(Integer.parseInt(txtEvasion.getText()))>200))
 				
 		{
@@ -231,7 +221,7 @@ public class ABMPersonaje extends JFrame {
 		p.setNombre(txtNombre.getText());
 		p.setVida(Integer.parseInt(txtVida.getText()));
 		p.setEnergia(Integer.parseInt(txtEnergia.getText()));
-		p.setAtaque(Integer.parseInt(txtAtaque.getText()));
+		
 		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
 		p.setEvasion(Integer.parseInt(txtEvasion.getText()));
 		p.setPuntos(punto);
@@ -247,10 +237,10 @@ public class ABMPersonaje extends JFrame {
 		txtNombre.setText(p.getNombre());
 		txtVida.setText(String.valueOf(p.getVida()));
 		txtEnergia.setText(String.valueOf(p.getEnergia()));
-		txtAtaque.setText(String.valueOf(p.getAtaque()));
+		
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		txtPuntos.setText((String.valueOf(p.getPuntos()-p.getAtaque()-p.getDefensa()-p.getEnergia()-p.getEvasion()-p.getVida())));
+		txtPuntos.setText((String.valueOf(p.getPuntos()-p.getDefensa()-p.getEnergia()-p.getEvasion()-p.getVida())));
 	
 		//txtTotalRestante(String.valueOf(p.getTotalRestante()));
 	}
@@ -261,7 +251,7 @@ public class ABMPersonaje extends JFrame {
 		txtNombre.setText("");
 		txtVida.setText("");
 		txtEnergia.setText("");
-		txtAtaque.setText("");
+		
 		txtDefensa.setText("");
 		txtEvasion.setText("");
 	}
@@ -296,8 +286,7 @@ public class ABMPersonaje extends JFrame {
 		per.setId(Integer.parseInt(txtID.getText()));
 		Personaje p=ctrl.Buscar(per);
 		if( ((Integer.parseInt(txtEnergia.getText()))+
-				(Integer.parseInt(txtVida.getText()))+
-				(Integer.parseInt(txtAtaque.getText()))
+				(Integer.parseInt(txtVida.getText()))
 				+(Integer.parseInt(txtDefensa.getText())) +
 				(Integer.parseInt(txtEvasion.getText()))>p.getPuntos()))
 				

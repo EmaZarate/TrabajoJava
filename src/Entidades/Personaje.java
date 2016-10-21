@@ -2,7 +2,7 @@ package Entidades;
 
 public class Personaje {
 	String nombre;
-	int energia,vida,defensa,ataque,evasion,id,puntos;
+	int energia,vida,defensa,evasion,id,puntos;
 	public int getPuntos() {
 		return puntos;
 	}
@@ -33,12 +33,8 @@ public class Personaje {
 	public void setDefensa(int defensa) {
 		this.defensa = defensa;
 	}
-	public int getAtaque() {
-		return ataque;
-	}
-	public void setAtaque(int ataque) {
-		this.ataque = ataque;
-	}
+	
+	
 	public int getEvasion() {
 		return evasion;
 	}
@@ -51,6 +47,11 @@ public class Personaje {
 	public void setVida(int vida) {
 		this.vida = vida;
 	}
+	
+	public void RecibirAtaque(int PuntosDeEnergia){
+		this.vida=this.vida-PuntosDeEnergia;
+	}
+	
 	@Override
 	public boolean equals(Object per){
 		return per instanceof Personaje && ((Personaje)per).getId() == this.getId();

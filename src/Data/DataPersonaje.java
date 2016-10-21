@@ -21,8 +21,8 @@ public class DataPersonaje {
 		
 		try {
 			stmt=FactoryConexion.getInstancia().getConn().prepareStatement(
-					"insert into personaje(id,nombre,vida,energia,ataque,defensa,evasion,puntos)"+
-					" values(?,?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
+					"insert into personaje(id,nombre,vida,energia,defensa,evasion,puntos)"+
+					" values(?,?,?,?,?,?,?)",PreparedStatement.RETURN_GENERATED_KEYS);
 			// PreparedStatement.RETURN_GENERATED_KEYS to be able to retrieve id generated on the db
 			// by the autoincrement column. Otherwise don't use it
 						
@@ -30,10 +30,9 @@ public class DataPersonaje {
 			stmt.setString(2, p.getNombre());
 			stmt.setInt(3, p.getVida());
 			stmt.setInt(4, p.getEnergia());
-			stmt.setInt(5, p.getAtaque());
-			stmt.setInt(6, p.getDefensa());
-			stmt.setInt(7, p.getEvasion());
-			stmt.setInt(8, p.getPuntos());
+			stmt.setInt(5, p.getDefensa());
+			stmt.setInt(6, p.getEvasion());
+			stmt.setInt(7, p.getPuntos());
 			stmt.execute();
 			
 			//after executing the insert use the following lines to retrieve the id
@@ -69,16 +68,15 @@ public class DataPersonaje {
 		
 		try {
 			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
-					"update personaje set nombre=?, vida=?, energia=?,ataque=?,defensa=?,evasion=?"+
+					"update personaje set nombre=?, vida=?, energia=?,defensa=?,evasion=?"+
 					" where id=?");
 			
 			stmt.setString(1, p.getNombre());
 			stmt.setInt(2, p.getVida());
 			stmt.setInt(3, p.getEnergia());
-			stmt.setInt(4, p.getAtaque());
-			stmt.setInt(5, p.getDefensa());
-			stmt.setInt(6, p.getEvasion());
-			stmt.setInt(7, p.getId());
+			stmt.setInt(4, p.getDefensa());
+			stmt.setInt(5, p.getEvasion());
+			stmt.setInt(6, p.getId());
 			stmt.execute();
 			
 			
@@ -140,7 +138,7 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		try {
 			stmt = FactoryConexion.getInstancia().getConn().prepareStatement(
-					"select id, nombre, vida, energia, ataque, defensa ,evasion,puntos from personaje where id=?");
+					"select id, nombre, vida, energia, defensa ,evasion,puntos from personaje where id=?");
 			stmt.setInt(1, per.getId());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
@@ -149,7 +147,6 @@ public class DataPersonaje {
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setEnergia(rs.getInt("energia"));
-				p.setAtaque(rs.getInt("ataque"));
 				p.setDefensa(rs.getInt("defensa"));
 				p.setEvasion(rs.getInt("evasion"));
 				p.setPuntos(rs.getInt("puntos"));
