@@ -39,6 +39,7 @@ public class SeleccionarPersonajes extends JFrame {
 	private JTextField textEvasion2;
 	private ControladorJuego ctrlJuego;
 	private Personaje personaje1;
+	private Personaje personaje2;
 
 	/**
 	 * Launch the application.
@@ -86,6 +87,11 @@ public class SeleccionarPersonajes extends JFrame {
 		contentPane.add(btnBuscarpersonaje);
 		
 		JButton btnOk = new JButton("ok");
+		btnOk.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnOk.setBounds(170, 227, 89, 23);
 		contentPane.add(btnOk);
 		
@@ -254,12 +260,13 @@ public class SeleccionarPersonajes extends JFrame {
 		}
 	}
 	public void buscar2(){
-		Personaje per =  new Personaje();
-		per.setId(Integer.parseInt(textId2.getText()));
-		Personaje p=ctrlJuego.Buscar(per);
-		if(p!= null){
-			MapearAFormulario2(p);
-			personaje1=p;
+		Personaje per=new Personaje();
+		per.setId(Integer.parseInt(textId1.getText()));
+		Personaje p =ctrlJuego.Buscar(per);
+		if(p!=null)
+		{
+		MapearAFormulario2(p);
+		personaje2=p;
 		}
 	}
 }

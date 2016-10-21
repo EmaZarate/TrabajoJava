@@ -43,18 +43,7 @@ public class ABMPersonaje extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ABMPersonaje frame = new ABMPersonaje();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -261,7 +250,7 @@ public class ABMPersonaje extends JFrame {
 		txtAtaque.setText(String.valueOf(p.getAtaque()));
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		txtPuntos.setText(String.valueOf(p.getPuntos()));
+		txtPuntos.setText((String.valueOf(p.getPuntos()-p.getAtaque()-p.getDefensa()-p.getEnergia()-p.getEvasion()-p.getVida())));
 	
 		//txtTotalRestante(String.valueOf(p.getTotalRestante()));
 	}
@@ -306,8 +295,11 @@ public class ABMPersonaje extends JFrame {
 		Personaje per =  new Personaje();
 		per.setId(Integer.parseInt(txtID.getText()));
 		Personaje p=ctrl.Buscar(per);
-		if( ((Integer.parseInt(txtEnergia.getText()))+(Integer.parseInt(txtVida.getText()))+(Integer.parseInt(txtAtaque.getText()))
-				+(Integer.parseInt(txtDefensa.getText())) +(Integer.parseInt(txtEvasion.getText()))>p.getPuntos()))
+		if( ((Integer.parseInt(txtEnergia.getText()))+
+				(Integer.parseInt(txtVida.getText()))+
+				(Integer.parseInt(txtAtaque.getText()))
+				+(Integer.parseInt(txtDefensa.getText())) +
+				(Integer.parseInt(txtEvasion.getText()))>p.getPuntos()))
 				
 		{
 			notifyUser("Los atributos energia, vida, evasión,defensa y ataque superan los 200 puntos ");
