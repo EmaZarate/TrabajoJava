@@ -6,10 +6,6 @@ public class ControladorJuego {
 	Personaje personajeTurno,personajeNoTurno;
     DataPersonaje data = new DataPersonaje();
 	
-	/*public ControladorJuego(Personaje personaje1,Personaje personaje2){
-		personajeTurno=personaje1;
-		personajeNoTurno=personaje2;
-	}*/
 	
 	
 	public Personaje Buscar(Personaje p)
@@ -17,9 +13,30 @@ public class ControladorJuego {
 		return data.getByID(p);
 	}
 	
-	public void Atacar(int puntosDeEnergia){
-		personajeNoTurno.RecibirAtaque(puntosDeEnergia);
-		Turno();
+	public void Seleccionar(Personaje p1,Personaje p2){
+		personajeTurno=p1;
+		personajeNoTurno=p2;
+	}
+	
+	public boolean Atacar(int puntosDeEnergia){
+		boolean semurio=false;
+		if(personajeNoTurno.RecibirAtaque(puntosDeEnergia))
+		{
+			semurio=true;
+		}
+		else{
+		personajeTurno.Atacar(puntosDeEnergia);	
+		}
+		
+		return semurio;
+	}
+	
+	public int ActualizarVida(){
+		return personajeNoTurno.getVida();
+	}
+	
+	public int ActualizarEnergia(){
+		return personajeTurno.getEnergia();
 	}
 	
 	public void Turno(){

@@ -48,8 +48,18 @@ public class Personaje {
 		this.vida = vida;
 	}
 	
-	public void RecibirAtaque(int PuntosDeEnergia){
+	public boolean RecibirAtaque(int PuntosDeEnergia){
+		boolean semuirio=false;
 		this.vida=this.vida-PuntosDeEnergia;
+		if(this.vida<=0){
+			semuirio=true;
+		}
+		return semuirio;
+	}
+	
+	public void Atacar(int PuntosDeEnergia)
+	{
+		this.energia=this.energia-PuntosDeEnergia;
 	}
 	
 	@Override

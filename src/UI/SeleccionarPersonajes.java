@@ -46,6 +46,9 @@ public class SeleccionarPersonajes extends JFrame {
 	private ControladorJuego ctrlJuego= new ControladorJuego();
 	private Personaje personaje1= new Personaje();
 	private Personaje personaje2=new Personaje();
+	private JTextField textTurno;
+	private Component frame;
+	private JTextField textEnergiaAUtilizar;
 
 	/**
 	 * Launch the application.
@@ -68,7 +71,7 @@ public class SeleccionarPersonajes extends JFrame {
 	 */
 	public SeleccionarPersonajes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 430);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -80,7 +83,7 @@ public class SeleccionarPersonajes extends JFrame {
 				buscar1();
 			}
 		});
-		btnBuscarPersonaje1.setBounds(10, 227, 138, 23);
+		btnBuscarPersonaje1.setBounds(10, 207, 138, 23);
 		contentPane.add(btnBuscarPersonaje1);
 		
 		JButton btnBuscarpersonaje = new JButton("BuscarPersonaje 2");
@@ -89,16 +92,16 @@ public class SeleccionarPersonajes extends JFrame {
 				buscar2();
 			}
 		});
-		btnBuscarpersonaje.setBounds(288, 227, 128, 23);
+		btnBuscarpersonaje.setBounds(296, 207, 128, 23);
 		contentPane.add(btnBuscarpersonaje);
 		
-		JButton btnOk = new JButton("ok");
+		JButton btnOk = new JButton("Seleccionar");
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				Seleccionar();
 			}
 		});
-		btnOk.setBounds(170, 227, 89, 23);
+		btnOk.setBounds(177, 207, 89, 23);
 		contentPane.add(btnOk);
 		
 		JLabel lblId = new JLabel("Id");
@@ -118,11 +121,11 @@ public class SeleccionarPersonajes extends JFrame {
 		contentPane.add(lblEnergia);
 		
 		JLabel lblDefensa = new JLabel("Defensa");
-		lblDefensa.setBounds(10, 168, 46, 14);
+		lblDefensa.setBounds(10, 140, 46, 14);
 		contentPane.add(lblDefensa);
 		
 		JLabel lblEvasin = new JLabel("Evasi\u00F3n");
-		lblEvasin.setBounds(10, 193, 46, 14);
+		lblEvasin.setBounds(10, 168, 46, 14);
 		contentPane.add(lblEvasin);
 		
 		textId1 = new JTextField();
@@ -148,13 +151,13 @@ public class SeleccionarPersonajes extends JFrame {
 		
 		textDefensa1 = new JTextField();
 		textDefensa1.setText("");
-		textDefensa1.setBounds(66, 165, 86, 20);
+		textDefensa1.setBounds(66, 137, 86, 20);
 		contentPane.add(textDefensa1);
 		textDefensa1.setColumns(10);
 		
 		textEvasion1 = new JTextField();
 		textEvasion1.setText("");
-		textEvasion1.setBounds(66, 190, 86, 20);
+		textEvasion1.setBounds(62, 165, 86, 20);
 		contentPane.add(textEvasion1);
 		textEvasion1.setColumns(10);
 		
@@ -180,12 +183,12 @@ public class SeleccionarPersonajes extends JFrame {
 		textEnergia2.setColumns(10);
 		
 		textDefensa2 = new JTextField();
-		textDefensa2.setBounds(330, 165, 86, 20);
+		textDefensa2.setBounds(330, 137, 86, 20);
 		contentPane.add(textDefensa2);
 		textDefensa2.setColumns(10);
 		
 		textEvasion2 = new JTextField();
-		textEvasion2.setBounds(330, 190, 86, 20);
+		textEvasion2.setBounds(330, 168, 86, 20);
 		contentPane.add(textEvasion2);
 		textEvasion2.setColumns(10);
 		
@@ -206,15 +209,52 @@ public class SeleccionarPersonajes extends JFrame {
 		contentPane.add(lblEnergia_1);
 		
 		JLabel lblDefensa_1 = new JLabel("Defensa");
-		lblDefensa_1.setBounds(274, 168, 46, 14);
+		lblDefensa_1.setBounds(274, 140, 46, 14);
 		contentPane.add(lblDefensa_1);
 		
 		JLabel lblEvasin_1 = new JLabel("Evasi\u00F3n");
-		lblEvasin_1.setBounds(274, 193, 46, 14);
+		lblEvasin_1.setBounds(274, 171, 46, 14);
 		contentPane.add(lblEvasin_1);
+		
+		JLabel lblNewLabel_1 = new JLabel("Turno");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNewLabel_1.setBounds(155, 288, 46, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		textTurno = new JTextField();
+		textTurno.setBounds(211, 286, 86, 20);
+		contentPane.add(textTurno);
+		textTurno.setColumns(10);
+		
+		JLabel lblEnergiaAUtilizar = new JLabel("Energia a utilizar");
+		lblEnergiaAUtilizar.setBounds(21, 327, 89, 14);
+		contentPane.add(lblEnergiaAUtilizar);
+		
+		textEnergiaAUtilizar = new JTextField();
+		textEnergiaAUtilizar.setBounds(123, 324, 86, 20);
+		contentPane.add(textEnergiaAUtilizar);
+		textEnergiaAUtilizar.setColumns(10);
+		
+		JButton btnAtacar = new JButton("Atacar");
+		btnAtacar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Atacar();
+			}
+		});
+		btnAtacar.setBounds(93, 357, 89, 23);
+		contentPane.add(btnAtacar);
+		
+		JButton btnDefender = new JButton("Defender");
+		btnDefender.setBounds(260, 357, 89, 23);
+		contentPane.add(btnDefender);
 		
 		
 	}
+	
+	private void notifyUser(String mensaje) {
+		JOptionPane.showMessageDialog(this.frame, mensaje);
+	}
+	
 	public void MapearAFormulario1(Personaje p){
 		if(p.getId()>0)
 		textId1.setText(String.valueOf(p.getId()));
@@ -257,4 +297,67 @@ public class SeleccionarPersonajes extends JFrame {
 		personaje2=p;
 		}
 	}
+	
+	public void Seleccionar(){
+		
+		ctrlJuego.Seleccionar(personaje1, personaje2);
+		textTurno.setText(personaje1.getNombre());
+	}
+	
+	public void Atacar(){
+		int puntosDeEnergia=0;
+		if(textEnergiaAUtilizar.getText().trim().length()==0){
+			notifyUser("Ingrese Energia para atacar");
+		}
+		else{
+			
+		    if(textNombre1.getText().equals(textTurno.getText())){
+			puntosDeEnergia=Integer.parseInt(textEnergia1.getText());
+		    }
+		    else{
+			puntosDeEnergia=Integer.parseInt(textEnergia2.getText());
+		    }
+		    
+		    if(Integer.parseInt(textEnergiaAUtilizar.getText())>puntosDeEnergia){
+			notifyUser("Los puntos de energia superan los del personaje");
+		   }
+		    else{
+		       if(ctrlJuego.Atacar(Integer.parseInt(textEnergiaAUtilizar.getText()))){
+			     notifyUser("Gano"+textTurno.getText());
+		       }
+		       else{
+			      
+			      
+		       }
+		       ActualizarDatos();
+		       ctrlJuego.Turno();
+		       Turno();
+		    }
+		
+		
+		  }
+		
+	}
+	public void ActualizarDatos(){
+		if(textNombre1.getText().equals(textTurno.getText())){
+				  textVida2.setText(String.valueOf(ctrlJuego.ActualizarVida()));
+				  textEnergia1.setText(String.valueOf(ctrlJuego.ActualizarEnergia()));
+				 
+			      }
+			      else{
+			    	 textVida1.setText(String.valueOf(ctrlJuego.ActualizarVida()));
+					  textEnergia2.setText(String.valueOf(ctrlJuego.ActualizarEnergia()));
+					  
+			      }
+	}
+	public void Turno(){
+		if(textTurno.getText().equals(textNombre1.getText())){
+			textTurno.setText(textNombre2.getText());
+		}
+		else{
+			textTurno.setText(textNombre1.getText());
+		}
+	}
+	
+	
 }

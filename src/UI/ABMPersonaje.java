@@ -202,6 +202,11 @@ public class ABMPersonaje extends JFrame {
 		valido=false;
 		notifyUser("Los atributos energia, vida, evasión,defensa y ataque superan los 200 puntos ");
 		}
+		if(Integer.parseInt(txtEvasion.getText())>80 )
+		{
+			valido=false;
+			notifyUser("El atibuto evasion supera las 80 puntos, por favor ingrese uno menor");
+		}
 				
 			
 		return valido;
