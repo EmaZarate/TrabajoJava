@@ -245,6 +245,11 @@ public class SeleccionarPersonajes extends JFrame {
 		contentPane.add(btnAtacar);
 		
 		JButton btnDefender = new JButton("Defender");
+		btnDefender.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Defender();
+			}
+		});
 		btnDefender.setBounds(260, 357, 89, 23);
 		contentPane.add(btnDefender);
 		
@@ -305,28 +310,30 @@ public class SeleccionarPersonajes extends JFrame {
 	}
 	
 	public void Atacar(){
-		int puntosDeEnergia=0;
+		
 		if(textEnergiaAUtilizar.getText().trim().length()==0){
 			notifyUser("Ingrese Energia para atacar");
 		}
+		 
 		else{
-			
-		    if(textNombre1.getText().equals(textTurno.getText())){
-			puntosDeEnergia=Integer.parseInt(textEnergia1.getText());
-		    }
-		    else{
-			puntosDeEnergia=Integer.parseInt(textEnergia2.getText());
-		    }
+			Personaje perTurno;
+			if(textTurno.getText().equals(personaje1.getNombre()))
+			{
+				perTurno=personaje1;
+			}
+			else{
+				perTurno=personaje2;
+			}
 		    
-		    if(Integer.parseInt(textEnergiaAUtilizar.getText())>puntosDeEnergia){
+		    if(Integer.parseInt(textEnergiaAUtilizar.getText())>perTurno.getEnergia()){
 			notifyUser("Los puntos de energia superan los del personaje");
 		   }
 		    else{
 		       if(ctrlJuego.Atacar(Integer.parseInt(textEnergiaAUtilizar.getText()))){
-			     notifyUser("Gano"+textTurno.getText());
+			     notifyUser("Gano"+" "+textTurno.getText());
+			     
 		       }
 		       else{
-			      
 			      
 		       }
 		       ActualizarDatos();
@@ -334,28 +341,27 @@ public class SeleccionarPersonajes extends JFrame {
 		       Turno();
 		    }
 		
-		
-		  }
-		
+		}
 	}
+	
+	public void Defender(){
+		ctrlJuego.Defender();
+		ActualizarDatos();
+		ctrlJuego.Turno();
+		Turno();
+	}
+	
 	public void ActualizarDatos(){
-		if(textNombre1.getText().equals(textTurno.getText())){
-				  textVida2.setText(String.valueOf(ctrlJuego.ActualizarVida()));
-				  textEnergia1.setText(String.valueOf(ctrlJuego.ActualizarEnergia()));
-				 
-			      }
-			      else{
-			    	 textVida1.setText(String.valueOf(ctrlJuego.ActualizarVida()));
-					  textEnergia2.setText(String.valueOf(ctrlJuego.ActualizarEnergia()));
-					  
-			      }
+			MapearAFormulario1(personaje1);
+			MapearAFormulario2(personaje2);
 	}
+	
 	public void Turno(){
-		if(textTurno.getText().equals(textNombre1.getText())){
-			textTurno.setText(textNombre2.getText());
+		if(personaje1.getNombre().equals(textTurno.getText())){
+		textTurno.setText(personaje2.getNombre());
 		}
 		else{
-			textTurno.setText(textNombre1.getText());
+			textTurno.setText(personaje1.getNombre());
 		}
 	}
 	

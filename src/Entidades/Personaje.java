@@ -66,5 +66,17 @@ public class Personaje {
 	public boolean equals(Object per){
 		return per instanceof Personaje && ((Personaje)per).getId() == this.getId();
 	}
+	public void Defender(int energia,int vida) {
+		this.energia=this.energia+(energia*this.defensa/100);
+		if(this.energia>energia){
+			this.energia=energia;
+		}
+		
+		this.vida=this.vida+(vida*this.defensa/100);
+		if(this.vida>vida){
+			this.vida=vida;
+		}
+		
+	}
 
 }
