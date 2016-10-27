@@ -175,4 +175,38 @@ public class DataPersonaje {
 		return p;
 	}
 	
+	public void updateGanador(Personaje p){
+		PreparedStatement stmt=null;
+		
+		try {
+			stmt= FactoryConexion.getInstancia().getConn().prepareStatement(
+					"update personaje set puntos=?"+
+					" where id=?");
+			
+			stmt.setInt(1, (p.getPuntos()+10));
+			stmt.setInt(2, p.getId());
+			stmt.execute();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(stmt!=null)stmt.close();
+				FactoryConexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }

@@ -38,15 +38,6 @@ public class ControladorJuego {
 	}
 	
 	
-	public Personaje DevolverPerosnajeTurno(){
-		return personajeTurno;
-	}
-	
-	public Personaje DevolverPersonajeNoTurno(){
-		return personajeNoTurno;
-	}
-	
-	
 	public void Turno(){
 		Personaje aux=personajeTurno;
 		personajeTurno=personajeNoTurno;
@@ -54,6 +45,10 @@ public class ControladorJuego {
 		aux=personajeTurnoOriginal;
 		personajeTurnoOriginal=personajeNoTurnoOriginal;
 		personajeNoTurnoOriginal=aux;
+	}
+	
+	public void updateGanador(Personaje p){
+		data.updateGanador(p);
 	}
 	
 }

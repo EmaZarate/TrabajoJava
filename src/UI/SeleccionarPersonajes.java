@@ -80,7 +80,7 @@ public class SeleccionarPersonajes extends JFrame {
 		JButton btnBuscarPersonaje1 = new JButton("Buscar personaje 1");
 		btnBuscarPersonaje1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buscar1();
+				Buscar1();
 			}
 		});
 		btnBuscarPersonaje1.setBounds(10, 207, 138, 23);
@@ -89,7 +89,7 @@ public class SeleccionarPersonajes extends JFrame {
 		JButton btnBuscarpersonaje = new JButton("BuscarPersonaje 2");
 		btnBuscarpersonaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				buscar2();
+				Buscar2();
 			}
 		});
 		btnBuscarpersonaje.setBounds(296, 207, 128, 23);
@@ -283,7 +283,7 @@ public class SeleccionarPersonajes extends JFrame {
 		textEvasion2.setText(String.valueOf(p.getEvasion()));
 		
 	}
-	public void buscar1(){
+	public void Buscar1(){
 		Personaje per =  new Personaje();
 		per.setId(Integer.parseInt(textId1.getText()));
 		Personaje p=ctrlJuego.Buscar(per);
@@ -292,7 +292,7 @@ public class SeleccionarPersonajes extends JFrame {
 			personaje1=p;
 		}
 	}
-	public void buscar2(){
+	public void Buscar2(){
 		Personaje per=new Personaje();
 		per.setId(Integer.parseInt(textId2.getText()));
 		Personaje p =ctrlJuego.Buscar(per);
@@ -331,6 +331,10 @@ public class SeleccionarPersonajes extends JFrame {
 		    else{
 		       if(ctrlJuego.Atacar(Integer.parseInt(textEnergiaAUtilizar.getText()))){
 			     notifyUser("Gano"+" "+textTurno.getText());
+			     Buscar1();
+			     Buscar2();
+			     Seleccionar();
+			     ctrlJuego.updateGanador(perTurno);
 			     
 		       }
 		       else{

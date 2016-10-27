@@ -48,6 +48,14 @@ public class Personaje {
 		this.vida = vida;
 	}
 	
+	
+	
+	@Override
+	public boolean equals(Object per){
+		return per instanceof Personaje && ((Personaje)per).getId() == this.getId();
+	}
+	
+	
 	public boolean RecibirAtaque(int PuntosDeEnergia){
 		boolean semuirio=false;
 		this.vida=this.vida-PuntosDeEnergia;
@@ -62,10 +70,6 @@ public class Personaje {
 		this.energia=this.energia-PuntosDeEnergia;
 	}
 	
-	@Override
-	public boolean equals(Object per){
-		return per instanceof Personaje && ((Personaje)per).getId() == this.getId();
-	}
 	public void Defender(int energia,int vida) {
 		this.energia=this.energia+(energia*this.defensa/100);
 		if(this.energia>energia){
