@@ -1,4 +1,5 @@
 package Entidades;
+import java.util.Random;
 
 public class Personaje {
 	String nombre;
@@ -58,7 +59,12 @@ public class Personaje {
 	
 	public boolean RecibirAtaque(int PuntosDeEnergia){
 		boolean semuirio=false;
-		this.vida=this.vida-PuntosDeEnergia;
+		Random rnd = new Random();
+		int numAle=(int)(rnd.nextDouble()*100);
+		
+		if(numAle>getEvasion()){
+		this.vida=this.vida-PuntosDeEnergia;}
+		
 		if(this.vida<=0){
 			semuirio=true;
 		}

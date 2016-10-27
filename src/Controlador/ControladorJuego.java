@@ -21,16 +21,8 @@ public class ControladorJuego {
 	}
 	
 	public boolean Atacar(int puntosDeEnergia){
-		boolean semurio=false;
-		if(personajeNoTurno.RecibirAtaque(puntosDeEnergia))
-		{
-			semurio=true;
-		}
-		else{
-		personajeTurno.Atacar(puntosDeEnergia);	
-		}
-		
-		return semurio;
+
+		return (personajeNoTurno.RecibirAtaque(puntosDeEnergia));
 	}
 	
 	public void Defender(){
