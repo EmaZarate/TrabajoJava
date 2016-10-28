@@ -78,8 +78,13 @@ public class PantallaPrincipal {
 		JButton btnjugar = new JButton("\u00A1JUGAR!");
 		btnjugar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
 				SeleccionarPersonajes sel=new SeleccionarPersonajes();
 				sel.setVisible(true);
+
+				SeleccionarPersonajes sp=new SeleccionarPersonajes();
+				sp.setVisible(true);
+
 			}
 		});
 		btnjugar.setBounds(65, 95, 130, 23);
