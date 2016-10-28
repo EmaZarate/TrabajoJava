@@ -330,6 +330,7 @@ public class SeleccionarPersonajes extends JFrame {
 		   }
 		    else{
 		       if(ctrlJuego.Atacar(Integer.parseInt(textEnergiaAUtilizar.getText()))){
+		    	 ActualizarDatos();
 			     notifyUser("Gano"+" "+textTurno.getText());
 			     Buscar1();
 			     Buscar2();
@@ -338,11 +339,11 @@ public class SeleccionarPersonajes extends JFrame {
 			     
 		       }
 		       else{
-			      
-		       }
-		       ActualizarDatos();
+			   ActualizarDatos();
 		       ctrlJuego.Turno();
 		       Turno();
+		       }
+		       
 		    }
 		
 		}

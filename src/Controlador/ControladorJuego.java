@@ -21,7 +21,7 @@ public class ControladorJuego {
 	}
 	
 	public boolean Atacar(int puntosDeEnergia){
-
+                personajeTurno.Atacar(puntosDeEnergia);
 		return (personajeNoTurno.RecibirAtaque(puntosDeEnergia));
 	}
 	
