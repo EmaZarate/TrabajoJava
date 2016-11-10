@@ -111,11 +111,11 @@ public class ABMPersonaje extends JFrame {
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				crear();
-				JOptionPane.showMessageDialog(null, "Personaje registrada!");
+				
 			}
 		});
 		
-		btnCrear.setBounds(10, 347, 88, 23);
+		btnCrear.setBounds(10, 295, 88, 23);
 	
 		contentPane.add(btnCrear);
 		
@@ -126,7 +126,7 @@ public class ABMPersonaje extends JFrame {
 				
 			}
 		});
-		button.setBounds(104, 347, 81, 23);
+		button.setBounds(111, 295, 81, 23);
 		contentPane.add(button);
 		
 		JButton btnModificar = new JButton("Modificar");
@@ -134,11 +134,9 @@ public class ABMPersonaje extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				modificar();
 
-				JOptionPane.showMessageDialog(null, "Personaje modificada!");
-
 			}
 		});
-		btnModificar.setBounds(195, 347, 84, 23);
+		btnModificar.setBounds(200, 295, 84, 23);
 		contentPane.add(btnModificar);
 		
 		JButton btnEliminar = new JButton("Eliminar");
@@ -146,12 +144,9 @@ public class ABMPersonaje extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				eliminar();
 
-				JOptionPane.showMessageDialog(null, "Personaje Eliminado!");
-				
-
 			}
 		});
-		btnEliminar.setBounds(289, 347, 83, 23);
+		btnEliminar.setBounds(294, 295, 83, 23);
 		contentPane.add(btnEliminar);
 		
 		JLabel lblVida = new JLabel("Vida");
@@ -172,14 +167,22 @@ public class ABMPersonaje extends JFrame {
 		contentPane.add(txtPuntos);
 		txtPuntos.setColumns(10);
 		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				dispose();
+				
+			}
+		});
+		btnSalir.setBounds(152, 347, 89, 23);
+		contentPane.add(btnSalir);
+		
 		
 		
 	}
 	
-	
-	
-	
-	
+
 	
 	public boolean datosValidos(){
 		boolean valido=true;
@@ -262,6 +265,7 @@ public class ABMPersonaje extends JFrame {
 	}
 	
 	protected void crear() {
+		try{
 		if(datosValidos()){
 			
 				Personaje p = MapearDeFormulario(200);
@@ -270,7 +274,13 @@ public class ABMPersonaje extends JFrame {
 				
 				limpiarCampos();
 				
+				JOptionPane.showMessageDialog(null, "Personaje registrada!");
+				
 			}
+		}
+		catch(ApplicationException apli){
+			notifyUser(apli.getMessage());
+		}
 	}
 	
 	public void buscar(){
@@ -279,34 +289,45 @@ public class ABMPersonaje extends JFrame {
 		per.setId(Integer.parseInt(txtID.getText()));
 		Personaje p=ctrl.Buscar(per);
 		if(p!= null)
-			MapearAFormulario(p);
-			
-			
+			MapearAFormulario(p);		
 	    
 	}
 	
 	public void modificar(){
-		
-		Personaje per =  new Personaje();
-		per.setId(Integer.parseInt(txtID.getText()));
-		Personaje p=ctrl.Buscar(per);
-		if( ((Integer.parseInt(txtEnergia.getText()))+
+		try{
+		   Personaje per =  new Personaje();
+		   per.setId(Integer.parseInt(txtID.getText()));
+		   Personaje p=ctrl.Buscar(per);
+		   
+		   if( ((Integer.parseInt(txtEnergia.getText()))+
 				(Integer.parseInt(txtVida.getText()))
 				+(Integer.parseInt(txtDefensa.getText())) +
 				(Integer.parseInt(txtEvasion.getText()))>p.getPuntos()))
 				
-		{
-			notifyUser("Los atributos energia, vida, evasión,defensa y ataque superan los 200 puntos ");
-		}
-		else{
-		ctrl.Modificar(MapearDeFormulario(p.getPuntos()));
-		limpiarCampos();
-		}
+		    {
+			  notifyUser("Los atributos energia, vida, evasión,defensa y ataque superan los puntos del personaje ");
+		    }
+		   else{
+		     ctrl.Modificar(MapearDeFormulario(p.getPuntos()));
+		     limpiarCampos();
+		     JOptionPane.showMessageDialog(null, "Personaje modificada!");
+		     }
+		   
+		  }
+		 catch(ApplicationException apli){
+			notifyUser(apli.getMessage());
+		 }
+	     catch (ArithmeticException are){
+		    notifyUser("Ha ocurrido algo inesperado, consulte al administrador de sistemas.");
+	     }
+	     catch (Exception e){
+		    notifyUser("Ha ocurrido algo totalmente inesperado, consulte al administrador de sistemas.");
+	     } 
 	}
 	
 	public void eliminar(){
 		ctrl.Eliminar(MapearDeFormulario(0));
 		limpiarCampos();
+		JOptionPane.showMessageDialog(null, "Personaje Eliminado!");
 	}
-
 }

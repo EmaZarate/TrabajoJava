@@ -1,5 +1,8 @@
 package Controlador;
 import java.util.ArrayList;
+
+import org.omg.CORBA.portable.ApplicationException;
+
 import Data.DataPersonaje;
 
 import Entidades.*;
@@ -26,7 +29,7 @@ public class ControladorABM {
 			
 	}	
 	
-	public void agregar(Personaje p){
+	public void agregar(Personaje p)throws ApplicationException{
 		dataPer.add(p);
 	}
 	
@@ -44,7 +47,7 @@ public class ControladorABM {
 		return dataPer.getByID(per);
 	}
 	
-	public void Modificar(Personaje per){
+	public void Modificar(Personaje per)throws ApplicationException{
 		/*if(arrayPer.contains(per)){
 		Personaje perEnc=this.Buscar(per);
 		perEnc.setId(per.getId());

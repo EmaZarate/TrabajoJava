@@ -1,4 +1,6 @@
 package Controlador;
+import org.omg.CORBA.portable.ApplicationException;
+
 import Data.*;
 import Entidades.*;
 
@@ -20,7 +22,7 @@ public class ControladorJuego {
 		personajeNoTurnoOriginal=data.getByID(personajeNoTurno);
 	}
 	
-	public boolean Atacar(int puntosDeEnergia){
+	public boolean Atacar(int puntosDeEnergia)throws ApplicationException{
                 personajeTurno.Atacar(puntosDeEnergia);
 		return (personajeNoTurno.RecibirAtaque(puntosDeEnergia));
 	}

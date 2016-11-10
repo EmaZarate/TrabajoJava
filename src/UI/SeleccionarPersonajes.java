@@ -53,25 +53,14 @@ public class SeleccionarPersonajes extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SeleccionarPersonajes frame = new SeleccionarPersonajes();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public SeleccionarPersonajes() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 430);
+		setBounds(100, 100, 450, 490);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -253,6 +242,15 @@ public class SeleccionarPersonajes extends JFrame {
 		btnDefender.setBounds(260, 357, 89, 23);
 		contentPane.add(btnDefender);
 		
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnSalir.setBounds(327, 417, 89, 23);
+		contentPane.add(btnSalir);
+		
 		
 	}
 	
@@ -310,19 +308,22 @@ public class SeleccionarPersonajes extends JFrame {
 	}
 	
 	public void Atacar(){
+		try{
 		
 		if(textEnergiaAUtilizar.getText().trim().length()==0){
 			notifyUser("Ingrese Energia para atacar");
 		}
 		 
 		else{
-			Personaje perTurno;
+			Personaje perTurno,noTurno;
 			if(textTurno.getText().equals(personaje1.getNombre()))
 			{
 				perTurno=personaje1;
+				noTurno=personaje2;
 			}
 			else{
 				perTurno=personaje2;
+				noTurno=personaje1;
 			}
 		    
 		    if(Integer.parseInt(textEnergiaAUtilizar.getText())>perTurno.getEnergia()){
@@ -330,23 +331,44 @@ public class SeleccionarPersonajes extends JFrame {
 		   }
 		    else{
 		       if(ctrlJuego.Atacar(Integer.parseInt(textEnergiaAUtilizar.getText()))){
+		    	 notifyUser("Evadió el ataque");
 		    	 ActualizarDatos();
-			     notifyUser("Gano"+" "+textTurno.getText());
-			     Buscar1();
-			     Buscar2();
-			     Seleccionar();
-			     ctrlJuego.updateGanador(perTurno);
+		    	 ctrlJuego.Turno();
+		         Turno();
 			     
 		       }
 		       else{
-			   ActualizarDatos();
-		       ctrlJuego.Turno();
-		       Turno();
+		    	     if(noTurno.getVida()<=0){   
+		    		     ActualizarDatos();
+				         notifyUser("Gano"+" "+textTurno.getText());
+				         Buscar1();
+				         Buscar2();
+				         Seleccionar();
+				         ctrlJuego.updateGanador(perTurno);}
+				     else{
+				    	 ActualizarDatos();
+				    	 ctrlJuego.Turno();
+				         Turno();
+				    	 
+				        }
+			     
+		    	   }
 		       }
 		       
 		    }
 		
 		}
+		catch(ApplicationException apli){
+			notifyUser(apli.getMessage());
+		}
+	    catch (ArithmeticException are){
+		   notifyUser("Ha ocurrido algo inesperado, consulte al administrador de sistemas.");
+	    }
+	    catch (Exception e){
+		   notifyUser("Ha ocurrido algo totalmente inesperado, consulte al administrador de sistemas.");
+	    } 
+		
+		
 	}
 	
 	public void Defender(){

@@ -58,17 +58,16 @@ public class Personaje {
 	
 	
 	public boolean RecibirAtaque(int PuntosDeEnergia){
-		boolean semuirio=false;
+		boolean evadio=true;
 		Random rnd = new Random();
 		int numAle=(int)(rnd.nextDouble()*100);
 		
 		if(numAle>getEvasion()){
-		this.vida=this.vida-PuntosDeEnergia;}
-		
-		if(this.vida<=0){
-			semuirio=true;
+		this.vida=this.vida-PuntosDeEnergia;
+		evadio=false;
 		}
-		return semuirio;
+		
+		return evadio;
 	}
 	
 	public void Atacar(int PuntosDeEnergia)
